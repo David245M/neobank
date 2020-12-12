@@ -16,9 +16,9 @@ app.post('/login', signIn)
 app.post('/register', register)
 
 if (process.env.NODE_ENV === 'production') {
-  app.use('/', express.static(path.join('app', 'client/build')))
+  app.use('/', express.static('client/build'))
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve('app', 'client/build/index.html'))
+    res.sendFile('client/build/index.html')
   })
 }
 
