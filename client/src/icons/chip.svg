@@ -1,0 +1,20 @@
+<svg width="64" height="53" viewBox="0 0 64 53" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 16.5H19" stroke="#8B9EB0"/>
+<line y1="37.5" x2="18" y2="37.5" stroke="#8B9EB0"/>
+<line x1="45" y1="16.5" x2="64" y2="16.5" stroke="#8B9EB0"/>
+<path d="M45.5 37.5H64" stroke="#8B9EB0"/>
+<rect x="1" y="1" width="62" height="51" rx="7" stroke="#8B9EB0" stroke-width="2"/>
+<line x1="22.5" y1="20" x2="22.5" y2="34" stroke="#8B9EB0"/>
+<line x1="41.5" y1="20" x2="41.5" y2="34" stroke="#8B9EB0"/>
+<line x1="41" y1="33.5" x2="22" y2="33.5" stroke="#8B9EB0"/>
+<line x1="41" y1="20.5" x2="29" y2="20.5" stroke="#8B9EB0"/>
+<line x1="45.3536" y1="16.3536" x2="41.3536" y2="20.3536" stroke="#8B9EB0"/>
+<line x1="18.3536" y1="16.6464" x2="22.3536" y2="20.6464" stroke="#8B9EB0"/>
+<line x1="17.6877" y1="37.6096" x2="22.6877" y2="33.6096" stroke="#8B9EB0"/>
+<line x1="45.6877" y1="37.3904" x2="40.6877" y2="33.3904" stroke="#8B9EB0"/>
+<line x1="31.5" y1="34" x2="31.5" y2="40" stroke="#8C9FB1"/>
+<line x1="4" y1="7.5" x2="49" y2="7.5" stroke="#8B9EB0"/>
+<line x1="51" y1="7.5" x2="55" y2="7.5" stroke="#8C9FB1"/>
+<line x1="21.6159" y1="51.6799" x2="31.6159" y2="39.6799" stroke="#8B9EB0"/>
+<line x1="41.6263" y1="52.3322" x2="33.6263" y2="43.3322" stroke="#8B9EB0"/>
+</svg>

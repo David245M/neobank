@@ -1,0 +1,28 @@
+{
+  "name": "neu",
+  "version": "1.0.0",
+  "description": "Fullstack bank application built with MySQL, Node.js, React",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "client": "npm start --prefix client",
+    "client:install": "npm install --prefix client",
+    "client:build": "npm run build --prefix client",
+    "prod": "cross-env NODE_ENV=production node app",
+    "server": "cross-env NODE_ENV=development nodemon app"
+  },
+  "author": "Mike Kokadii",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "http-proxy-middleware": "^1.0.6",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.2.5"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "nodemon": "^2.0.6"
+  }
+}
