@@ -9,7 +9,6 @@ import signIn from './server/routes/login.js'
 import register from './server/routes/register.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-
 const app = express()
 app.use(express.json())
 
@@ -17,9 +16,9 @@ app.post('/login', signIn)
 app.post('/register', register)
 
 if (process.env.NODE_ENV === 'production') {
-  app.use('/', express.static(path.join(__dirname, 'client', 'build')))
+  app.use('/', express.static(path.join('app', 'client/build')))
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    res.sendFile(path.resolve('app', 'client/build/index.html'))
   })
 }
 
