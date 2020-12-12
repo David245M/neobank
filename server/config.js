@@ -1,5 +1,5 @@
 const config = {
-  port: 5000,
+  port: process.env.PORT || 500,
   secretJWS: 'coursework'
 }
 
