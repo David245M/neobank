@@ -5,6 +5,7 @@
   "type": "module",
   "main": "app.js",
   "scripts": {
+    "build": "npm run build --prefix client",
     "client": "npm start --prefix client",
     "client:install": "npm install --prefix client",
     "client:build": "npm run build --prefix client",
