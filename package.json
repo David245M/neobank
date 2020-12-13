@@ -4,6 +4,9 @@
   "description": "Fullstack bank application built with MySQL, Node.js, React",
   "type": "module",
   "main": "app.js",
+  "engines": {
+    "node": ">=12.18.4"
+  },
   "scripts": {
     "build": "npm run build --prefix client",
     "client": "npm start --prefix client",
