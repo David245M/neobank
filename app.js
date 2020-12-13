@@ -15,7 +15,7 @@ app.use(express.json())
 if (process.env.NODE_ENV === 'production') {
   app.use('/', express.static(path.join('client','build')))
   app.get('*', (req, res) => {
-    res.sendFile(('../client/build/index.html'))
+    res.sendFile(path.resolve('../client/build/index.html'))
   })
 }
 app.post('/login', signIn)
