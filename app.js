@@ -12,15 +12,15 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const app = express()
 app.use(express.json())
 
+if (process.env.NODE_ENV === 'production') {
+  app.use('/', express.static(path.join('client','build')))
+  app.get('*', (req, res) => {
+    res.sendFile(('../client/build/index.html'))
+  })
+}
 app.post('/login', signIn)
 app.post('/register', register)
 
-if (process.env.NODE_ENV === 'production') {
-  app.use('/', express.static(path.resolve('client/build')))
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve('client/build/index.html'))
-  })
-}
 
 const runServer = async () => {
   try {
