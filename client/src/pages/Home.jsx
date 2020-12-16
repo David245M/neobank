@@ -34,7 +34,7 @@ const Cards = ({ bills }) => {
 
 const HomePage = () => {
   const { user } = useContext(UserContext)
-  const { loading, data } = useHttp('/bills', {
+  const { loading, data } = useHttp('/api/bills', {
     credentials: 'include'
   })
   const [cards, setCards] = useState([])

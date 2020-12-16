@@ -11,7 +11,7 @@ const UserProvider = props => {
 
   const login = async credientals => {
     try{
-      const res = await fetch('/login', {
+      const res = await fetch('/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ const UserProvider = props => {
   }
 
   const logout = async () => {
-    const res = await fetch('/logout', {
+    const res = await fetch('/api/logout', {
       method: 'POST',
       credentials: 'include'
     })
@@ -34,7 +34,7 @@ const UserProvider = props => {
   }
 
   const createUser = async info => {
-    const res = await fetch('/register', {
+    const res = await fetch('/api/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -51,7 +51,7 @@ const UserProvider = props => {
 
   const checkToken = async () => {
     try {
-      const res = await fetch('/token', {
+      const res = await fetch('/api/token', {
         credentials: 'include'
       })
       setAuthorised(res.ok)

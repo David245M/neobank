@@ -28,14 +28,14 @@ app.use(cors({
 
 app.use(checkUser)
 
-app.post('/login', signIn)
-app.post('/register', register)
-app.post('/logout', logout)
-app.get('/bills', bills)
-app.post('/send', create)
-app.get('/history', history)
-app.get('/token', checkToken)
-app.post('/bill/new', newCard)
+app.post('/api/login', signIn)
+app.post('/api/register', register)
+app.post('/api/logout', logout)
+app.get('/api/bills', bills)
+app.post('/api/send', create)
+app.get('/api/history', history)
+app.get('/api/token', checkToken)
+app.post('/api/bill/new', newCard)
 
 if (process.env.NODE_ENV === 'production') {
   app.use('/', express.static(path.join('client','build')))

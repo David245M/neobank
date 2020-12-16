@@ -37,7 +37,7 @@ const CreateCardStyled = styled.button`
 `
 
 const CreateCard = () => {
-  const [createNewCard] = useLazyHttp('/bill/new', {
+  const [createNewCard] = useLazyHttp('/api/bill/new', {
     method: 'POST',
     credentials: 'include',
     headers: { 'Content-Type': 'application/json' }

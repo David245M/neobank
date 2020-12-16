@@ -4,7 +4,7 @@ import useHttp from '../hooks/useHttp'
 const History = () => {
   const [transactions, setTransactions] = useState([])
 
-  const { data, error, loading } = useHttp('/history', {
+  const { data, error, loading } = useHttp('/api/history', {
     credentials: 'include',
     // headers: { 'Content-Type': 'application/json' },
   }) 

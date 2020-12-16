@@ -3,7 +3,7 @@ import config from '../config.js'
 import jwt from 'jsonwebtoken'
 
 const checkUser = async (req, res, next) => {
-  if (req.path !== '/login' && req.path !== '/register' && req.path !== '/logout') {
+  if (req.path !== '/api/login' && req.path !== '/api/register' && req.path !== '/api/logout') {
     console.log('checking ', req.path)
     if(!req.cookies.jwt) {
       return res.status(401).json({ error: 'Unauthorised' })
