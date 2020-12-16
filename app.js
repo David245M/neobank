@@ -25,12 +25,6 @@ app.use(cors({
   credentials: true
 }))
 
-if (process.env.NODE_ENV === 'production') {
-  app.use('/', express.static(path.join('client','build')))
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve('./client/build/index.html'))
-  })
-}
 
 app.use(checkUser)
 
@@ -43,6 +37,12 @@ app.get('/history', history)
 app.get('/token', checkToken)
 app.post('/bill/new', newCard)
 
+if (process.env.NODE_ENV === 'production') {
+  app.use('/', express.static(path.join('client','build')))
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve('./client/build/index.html'))
+  })
+}
 const runServer = async () => {
   try {
     // await db.connect()
