@@ -7,7 +7,6 @@ const UserContext = createContext({
 
 const UserProvider = props => {
   const [authorised, setAuthorised] = useState(false)
-  const history = useHistory()
 
   const login = async credientals => {
     try{
@@ -19,7 +18,7 @@ const UserProvider = props => {
         body: JSON.stringify(credientals)
       })
       if (res.status === 404) throw "User not found"
-      res.ok && setAuthorised(true) 
+      res.status == 200 && setAuthorised(true) 
     } catch (error) {
       alert(error)
     }
@@ -30,7 +29,7 @@ const UserProvider = props => {
       method: 'POST',
       credentials: 'include'
     })
-    if (res.ok) setAuthorised(false)
+    if (res.status == 200) setAuthorised(false)
   }
 
   const createUser = async info => {
@@ -43,7 +42,7 @@ const UserProvider = props => {
     }) 
 
     const body = await res.json()
-    if (res.ok && body.success) {
+    if (res.status == 200 && body.success) {
       return login(info)
     }
     alert(body.error)
@@ -54,7 +53,7 @@ const UserProvider = props => {
       const res = await fetch('/api/token', {
         credentials: 'include'
       })
-      setAuthorised(res.ok)
+      setAuthorised(res.status == 200)
     } catch (error) {
       console.log(error)
     }
