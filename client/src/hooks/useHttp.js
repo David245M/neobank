@@ -13,8 +13,10 @@ const useHttp = (url, options) => {
     try {
       const res = await fetch(url, options);
       if (res.status === 401) throw res.status
-      const json = await res.json()
-      setData(json)
+      if (res.ok) {
+        const json = await res.json()
+        setData(json)
+      }
     } catch (error) {
       if (error === 401) logout()
       setError(error)

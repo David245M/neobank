@@ -13,7 +13,7 @@ const register = async (req, res) => {
       'INSERT INTO user (name, email, password) VALUES (?,?,?)', 
       [name, email, await bcrypt.hash(password, 12)]
     )
-    return res.status(201).json({ success: newUser.affectedRows })
+    return res.status(200).json({ success: newUser.affectedRows })
   } catch (error) {
     console.error(error)
     res.status(500).json({ error })

@@ -18,6 +18,7 @@ import checkToken from './server/routes/checkToken.js'
 import newCard from './server/routes/newCard.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
+
 const app = express()
 app.use(express.json())
 app.use(cookieParser())
@@ -25,15 +26,7 @@ app.use(cors({
   credentials: true
 }))
 
-
 app.use(checkUser)
-
-if (process.env.NODE_ENV === 'production') {
-  app.use('/', express.static(path.join('client','build')))
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve('./client/build/index.html'))
-  })
-}
 
 app.post('/api/login', signIn)
 app.post('/api/register', register)
@@ -44,9 +37,15 @@ app.get('/api/history', history)
 app.get('/api/token', checkToken)
 app.post('/api/bill/new', newCard)
 
+if (process.env.NODE_ENV === 'production') {
+  app.use('/', express.static(path.join('client','build')))
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve('./client/build/index.html'))
+  })
+}
+
 const runServer = async () => {
   try {
-    // await db.connect()
     console.log('Database connected!')
     app.listen(port, () => console.log(`Server running at ${port} port...`))
   } catch (error) {

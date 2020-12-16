@@ -4,8 +4,8 @@ import useLazyHttp from '../hooks/useLazyHttp'
 import useInput from '../hooks/useInput'
 
 const CreateTransaction = () => {
-  const [from] = useInput('5375414115861758')
-  const [to] = useInput('5375418802750851')
+  const [from] = useInput()
+  const [to] = useInput()
   const [summ] = useInput(1)
   const [fetchData] = useLazyHttp('/api/send', {
     method: 'POST',

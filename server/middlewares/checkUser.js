@@ -7,8 +7,7 @@ const checkUser = async (req, res, next) => {
     req.path.substr(0, 4) === '/api' &&
     req.path !== '/api/login' && 
     req.path !== '/api/register' 
-    ) {
-    console.log('checking ', req.path)
+  ) {
     if(!req.cookies.jwt) {
       return res.status(401).json({ error: 'Unauthorised' })
     }
@@ -18,6 +17,7 @@ const checkUser = async (req, res, next) => {
       return res.status(401).json({ error: 'False token' })
     }
     res.locals.userId = id
+    console.log('checked', req.path + ', id: ' + id)
   }
   next()
 }
