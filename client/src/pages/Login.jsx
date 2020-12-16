@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { Paper, Title, Email, Password, Checkbox, Button, Link } from '../components'
 import { UserContext } from '../contexts/auth.context'
-import useInput from '../hooks/input'
+import useInput from '../hooks/useInput'
 
 const Login = () => {
   const [email] = useInput()

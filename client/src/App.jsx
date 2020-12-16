@@ -1,62 +1,47 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
-import LoginPage from './pages/Login'
-import Page from './components/Page'
-import HomePage from './pages/Home'
 import { UserContext } from './contexts/auth.context'
-import Register from './pages/Register'
-import Transactions from './pages/Transactions'
-import CreateTransaction from './pages/CreateTransaction'
-import SettingsPage from './pages/Settings'
+import Page from './components/Page'
+import { LoginPage, RegisterPage } from './pages'
+import Layout from './pages/Layout'
+import { LoadingContext } from './contexts/loading'
 
-const routes = [
-  {
-    path: '/home',
-    component: HomePage
-  },
-  {
-    path: '/transactions',
-    component: Transactions
-  },
-  {
-    path: '/create',
-    component: CreateTransaction
-  },
-  {
-    path: '/settings',
-    component: SettingsPage
-  },
-]
+const Unsecure = () => (
+  <Switch>
+    <Route path="/sign-in">
+      <LoginPage />
+    </Route>
+    <Route path="/register">
+      <RegisterPage />
+    </Route>
+    <Route>
+      <Redirect to="/sign-in" />
+    </Route>
+  </Switch>
+)
+
+const Secure = () => <Layout />
 
 const App = () => {
-  const { user } = useContext(UserContext)
+  const { authorised, checkToken } = useContext(UserContext)
+  const { loading, setLoading } = useContext(LoadingContext)
+
+  useEffect(async() => {
+    setLoading(true)
+    await checkToken()
+    setLoading(false)
+  }, [])
+
+
   return (
     <Page>
-      <Switch>
-        <Route exact path="/">
-          <Redirect to={user ? '/home' : '/sign-in'} />
-        </Route>
-        <Route path="/register">
-          {user ? <Redirect to="/" /> : <Register /> }
-        </Route>
-        <Route path="/sign-in">
-          {user ? <Redirect to="/" /> : <LoginPage /> }
-        </Route>
-        {routes.map(route => (
-          <Route 
-            key={route.path}
-            path={route.path}
-          >
-            {user ? <route.component /> : <Redirect to="/" />}
-          </Route>
-        ))}
-        <Route> <Redirect to="/" /> </Route>
-      </Switch>
+      {
+        authorised ?
+        <Secure /> :
+        <Unsecure />
+      }
     </Page>
   );
 }
-
-
-
 
 export default App;

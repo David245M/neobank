@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { Button, Email, Paper, Password, Title, Input, Link } from "../components"
 import { UserContext } from '../contexts/auth.context'
-import useInput from "../hooks/input"
+import useInput from "../hooks/useInput"
 
 const Register = () => {
   const [name] = useInput()

@@ -11,8 +11,8 @@ const StyledPaper = styled.div`
   flex-direction: column;
 `
 
-const Paper = ({ children, style }) => (
-  <StyledPaper $style={style}>
+const Paper = ({ children, style, ...props }) => (
+  <StyledPaper $style={style} {...props}>
     { children }
   </StyledPaper>
 )

@@ -6,7 +6,7 @@ const register = async (req, res) => {
   try {
     const [users] = await db.query('SELECT * FROM user WHERE email = ?', [email])
     if(users.length) {
-      return res.status(400).json({ message: 'User with this email already exists' })
+      return res.status(400).json({ error: 'User with this email already exists' })
     }
     
     const [newUser] = await db.query(
@@ -16,7 +16,7 @@ const register = async (req, res) => {
     return res.status(201).json({ success: newUser.affectedRows })
   } catch (error) {
     console.error(error)
-    res.status(500).json({ message: error })
+    res.status(500).json({ error })
   }
 }
 

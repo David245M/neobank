@@ -2,46 +2,35 @@ import React, { createContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
 const UserContext = createContext({
-  user: null,
-  token: null
+  authorised: false
 })
 
-const lsi = name => {
-  const value = localStorage.getItem(name)
-  return value && value !== 'undefined' ? JSON.parse(value) : null
-}
-
 const UserProvider = props => {
-  const [user, setUser] = useState(lsi('user'))
-  const [token, setToken] = useState(lsi('token'))
+  const [authorised, setAuthorised] = useState(false)
   const history = useHistory()
 
   const login = async credientals => {
-    const res = await fetch('/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(credientals)
-    })
-
-    const data = await res.json()
-    if(res.ok && data.user) {
-      setUser(data.user)
-      localStorage.setItem('user', JSON.stringify(data.user))
-      setToken(data.time)
-      localStorage.setItem('token', JSON.stringify(data.time))
+    try{
+      const res = await fetch('/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(credientals)
+      })
+      if (res.status === 404) throw "User not found"
+      res.ok && setAuthorised(true) 
+    } catch (error) {
+      alert(error)
     }
-    
-    if (data.message) alert(data.message)
   }
 
-  const logout = () => {
-    setUser(null)
-    localStorage.removeItem('user')
-    setToken(null)
-    localStorage.removeItem('token')
-    history.push('/')
+  const logout = async () => {
+    const res = await fetch('/logout', {
+      method: 'POST',
+      credentials: 'include'
+    })
+    if (res.ok) setAuthorised(false)
   }
 
   const createUser = async info => {
@@ -55,13 +44,24 @@ const UserProvider = props => {
 
     const body = await res.json()
     if (res.ok && body.success) {
-        return login(info)
+      return login(info)
     }
-    alert(body.message)
+    alert(body.error)
+  }
+
+  const checkToken = async () => {
+    try {
+      const res = await fetch('/token', {
+        credentials: 'include'
+      })
+      setAuthorised(res.ok)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
-    <UserContext.Provider value={{token, user, login, logout, createUser}} {...props} />
+    <UserContext.Provider value={{ authorised, login, logout, createUser, checkToken }} {...props} />
   )
 }
 

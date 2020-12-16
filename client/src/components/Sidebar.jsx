@@ -1,64 +1,71 @@
-import React from 'react'
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import { useLocation } from 'react-router-dom'
 import { Paper, IconButton, Link } from './'
 import { ReactComponent as HomeIcon } from '../icons/home.svg'
 import { ReactComponent as ChartIcon } from '../icons/chart.svg'
 import { ReactComponent as DollarIcon } from '../icons/dollar.svg'
 import { ReactComponent as LetterIcon } from '../icons/letter.svg'
 import { ReactComponent as SettingsIcon } from '../icons/settings.svg'
-import styled from 'styled-components'
 
+const StyledSidebar = styled(Paper)`
+  left:0;
+  position: absolute;
+
+  width:150px;
+  height: 100vh;
+  padding: 40px;
+  border-top-left-radius:0;
+  border-bottom-left-radius:0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 const Nav = styled.nav`
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: repeat(4, 1fr);
+  row-gap: 4vh;
   justify-items: center;
-  row-gap: 4vh;  
+
+`
+const SettingsLink = styled(Link)`
+  position: absolute;
+  bottom: 40px;
 `
 
-const Sidebar = ({ page, onChange }) => {
+const Sidebar = () => {
+  const location = useLocation()
+  const [page, setPage] = useState(location.pathname)
   return (
-    <Paper
-    style={{
-        left:0,
-        position: 'fixed',
-
-        width: 150,
-        height: '100vh',
-        padding: 40,
-        boxSizing: 'padding-box',
-               
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-
-        borderTopLeftRadius: 0,
-        borderBottomLeftRadius: 0
-      }}
-    >
+    <StyledSidebar>
       <Nav>
         <Link to="/home">
           <IconButton>
               <HomeIcon/> 
           </IconButton>
         </Link>
-        <Link to="/transactions">
+        <Link to="/history">
           <IconButton>
             <ChartIcon/>
           </IconButton>
         </Link>
-        <IconButton>
+        <IconButton >
           <DollarIcon/>
         </IconButton>
-        <IconButton>
-          <LetterIcon/>
-        </IconButton>
+        <Link  to="/create">
+          <IconButton>
+            <LetterIcon/>
+          </IconButton>
+        </Link>
       </Nav>
-      <Link to="/settings">
+      <SettingsLink to="/settings">
         <IconButton>
           <SettingsIcon/>
         </IconButton>
-      </Link>
-    </Paper>
+      </SettingsLink>
+    </StyledSidebar>
   )
 }
 
