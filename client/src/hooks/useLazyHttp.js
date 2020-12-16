@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { LoadingContext } from '../contexts/loading'
 
 const useLazyHttp = (url, options) => {
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
-  const [loading, setLoading] = useState(false)
+  const { setLoading } = useContext(LoadingContext)
 
   const fetchData = async (body) => {
     setLoading(true)
@@ -21,7 +22,7 @@ const useLazyHttp = (url, options) => {
     setLoading(false)
   }
 
-  return [fetchData,{ loading, data, error }]
+  return [fetchData, { data, error }]
 }
 
 export default useLazyHttp

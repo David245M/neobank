@@ -6,7 +6,8 @@ const checkUser = async (req, res, next) => {
   if (
     req.path.substr(0, 4) === '/api' &&
     req.path !== '/api/login' && 
-    req.path !== '/api/register' 
+    req.path !== '/api/register' &&
+    req.path !== '/api/logout' 
   ) {
     if(!req.cookies.jwt) {
       return res.status(401).json({ error: 'Unauthorised' })

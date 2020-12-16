@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import styled from 'styled-components'
-import { Paper } from '.'
+import Paper from './Paper'
 import {ReactComponent as ChipIcon} from '../icons/chip.svg'
 
 const CardWrapper = styled(Paper)`
@@ -25,7 +25,7 @@ const Balance = styled.p`
   font-weight:bold;
   font-family: 'Open Sans';
   letter-spacing: -1.8px;
-  color: ${props => props.theme.color.success};
+  color: ${props => props.red ? props.theme.color.fail : props.theme.color.success};
   text-shadow: 0px 0px 10px rgba(199, 192, 192, 0.623);
 `
 const Number = styled.p`
@@ -42,14 +42,17 @@ const Number = styled.p`
      -moz-background-clip: text;
           background-clip: text;
 `
+
+const getSymbol = curr => {
+  if (curr === 'usd') return '$'
+  if (curr === 'uah') return '₴'
+  if (curr === 'eur') return '€'
+}
+
 const Card = ({ number, balance, currency }) => {
   const integer = Math.floor(balance / 100)
   const tail = String(balance).substr(-2)
-  const symbol = useCallback(curr => {
-    if (curr === 'usd') return '$'
-    if (curr === 'uah') return '₴'
-    if (curr === 'eur') return '€'
-  }, [currency])
+  const symbol = useCallback(getSymbol, [currency])
   return (
     <CardWrapper>
       <h4>namecard</h4>
@@ -63,4 +66,4 @@ const Card = ({ number, balance, currency }) => {
 }
 
 export default Card
-export { CardWrapper }
+export { CardWrapper, getSymbol, Balance }

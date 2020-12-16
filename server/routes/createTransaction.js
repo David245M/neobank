@@ -4,6 +4,9 @@ import getCurrency from '../getCurrency.js'
 const newTransaction = async (req, res) => {
   const { transmitter: transmitterNumber, receiver: receiverNumber, total } = req.body
   try {
+    if (transmitterNumber === receiverNumber) {
+      return res.status(400).json({ error: 'Same card' })
+    }
     await db.query('START TRANSACTION')
     console.log('transaction begins')
     const [[transmitter]] =  await db.query(
@@ -15,22 +18,27 @@ const newTransaction = async (req, res) => {
       [receiverNumber]
     )
 
+    if(!transmitter || !receiver) {
+      await db.query('ROLLBACK')
+      return res.status(404).json({ error: 'Card is not exists' })
+    }
+
     if (transmitter.blocked || receiver.blocked) {
+      await db.query('ROLLBACK')
       await db.query(
         'INSERT INTO history (transmitter, receiver, total, success) VALUES (?, ?, ?, ?)',
         [transmitter.id, receiver.id, total, 0]
       )
-      await db.query('ROLLBACK')
-      return res.code(400).json({ error: 'Card is blocked' })
+      return res.status(400).json({ error: 'Card is blocked' })
     }
     console.log('not blocked')
     console.log(transmitter.balance, total)
     if (transmitter.balance < total) {
+      await db.query('ROLLBACK')
       await db.query(
         'INSERT INTO history (transmitter, receiver, total, success) VALUES (?, ?, ?, ?)',
         [transmitter.id, receiver.id, total, 0]
       )
-      await db.query('ROLLBACK')
       return res.status(400).json({ error: 'Not enough money' })
     }
     console.log('enough money')

@@ -7,15 +7,13 @@ const StyledCheckbox = styled.div`
   input[type=checkbox] {
     /* display: none */
   }
-
   label {
 
   }
 `
-
-const Checkbox = ({ label, name }) => (
+const Checkbox = ({ label, name, ...rest }) => (
   <StyledCheckbox>
-    <input name={name} id={name} type="checkbox" defaultChecked/>
+    <input name={name} id={name} type="checkbox" {...rest}/>
     <label htmlFor={name}> { label }</label>
   </StyledCheckbox>
 )

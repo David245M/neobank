@@ -33,7 +33,7 @@ app.post('/api/register', register)
 app.post('/api/logout', logout)
 app.get('/api/bills', bills)
 app.post('/api/send', create)
-app.get('/api/history', history)
+app.post('/api/history', history)
 app.get('/api/token', checkToken)
 app.post('/api/bill/new', newCard)
 

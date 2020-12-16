@@ -12,7 +12,7 @@ const useHttp = (url, options) => {
     setLoading(true)
     try {
       const res = await fetch(url, options);
-      if (res.status === 401) throw res.status
+      if (res.status == 401) throw res.status
       if (res.ok) {
         const json = await res.json()
         setData(json)
