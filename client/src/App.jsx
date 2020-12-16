@@ -8,6 +8,9 @@ import { LoadingContext } from './contexts/loading'
 
 const Unsecure = () => (
   <Switch>
+    <Route exact path="/">
+      <Redirect to="/sign/in" />
+    </Route>
     <Route path="/sign-in">
       <LoginPage />
     </Route>
