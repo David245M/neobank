@@ -8,7 +8,6 @@ const newTransaction = async (req, res) => {
       return res.status(400).json({ error: 'Same card' })
     }
     await db.query('START TRANSACTION')
-    await db.query('LOCK TABLES bill WRITE, history WRITE')
     console.log('transaction begins')
     const [[transmitter]] =  await db.query(
       'SELECT * FROM bill WHERE number = ?', 
@@ -21,13 +20,11 @@ const newTransaction = async (req, res) => {
 
     if(!transmitter || !receiver) {
       await db.query('ROLLBACK')
-      await db.query('UNLOCK TABLES')
       return res.status(404).json({ error: 'Card is not exists' })
     }
 
     if (transmitter.blocked || receiver.blocked) {
       await db.query('ROLLBACK')
-      await db.query('UNLOCK TABLES')
       await db.query(
         'INSERT INTO history (transmitter, receiver, total, success) VALUES (?, ?, ?, ?)',
         [transmitter.id, receiver.id, total, 0]
@@ -38,7 +35,6 @@ const newTransaction = async (req, res) => {
     console.log(transmitter.balance, total)
     if (transmitter.balance < total) {
       await db.query('ROLLBACK')
-      await db.query('UNLOCK TABLES')
       await db.query(
         'INSERT INTO history (transmitter, receiver, total, success) VALUES (?, ?, ?, ?)',
         [transmitter.id, receiver.id, total, 0]
@@ -64,7 +60,6 @@ const newTransaction = async (req, res) => {
       'INSERT INTO history (transmitter, receiver, total, exchange, success) VALUES (?, ?, ?, ?, ?)',
       [transmitter.id, receiver.id, total, parseInt(currency[rate].toFixed(2) * 100), 1]
     )
-    await db.query('UNLOCK TABLES')
     await db.query('COMMIT')
     console.log('success')
     return res.json({ success: true })
