@@ -46,6 +46,7 @@ const newTransaction = async (req, res) => {
 
     const rate = transmitter.currency.toUpperCase() + '_' + receiver.currency.toUpperCase()
     const currency = await getCurrency(rate)
+    console.log(currency)
     console.log('CURRENCY: ' + currency[rate].toFixed(2))
 
     await db.query(
@@ -58,7 +59,7 @@ const newTransaction = async (req, res) => {
     )
     await db.query(
       'INSERT INTO history (transmitter, receiver, total, exchange, success) VALUES (?, ?, ?, ?, ?)',
-      [transmitter.id, receiver.id, total, parseInt(currency[rate].toFixed(2) * 100), 1]
+      [transmitter.id, receiver.id, total, parseInt(currency[rate].toFixed(2) * 100), true]
     )
     await db.query('COMMIT')
     console.log('success')
