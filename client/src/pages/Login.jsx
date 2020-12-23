@@ -34,7 +34,7 @@ const Login = () => {
       }}>
         <Email label="Email" placeholder="example@gmail.com" {...email}/>
         <Password label="Password" {...password} />
-        <Checkbox name="remember" label="Запомнить меня" />
+        <Checkbox name="remember" label="Remember me" />
         <Button primary type="submit">Enter</Button>
       </form>
       <Link to="/register">Has no account?</Link> 

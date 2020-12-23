@@ -61,7 +61,7 @@ const CreateCard = () => {
       </CreateCardStyled>
       <Modal open={open} setOpen={setOpen}>
         <h3>Create new card</h3>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} style={{display: 'flex', flexDirection: 'column'}}>
           <Select options={['uah', 'usd', 'eur']} {...currency} />
           <Button primary type="submit">
             Create

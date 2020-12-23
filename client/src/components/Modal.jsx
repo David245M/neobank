@@ -16,8 +16,8 @@ const Wrapper = styled.div`
 `
 const Inner = styled.div`
   padding: 40px;
-  height: 50%;
-  width: clamp(400px, 50%, 600px);
+  min-height: 100px;
+  width: clamp(200px, 20%, 600px);
   background: white;
   border-radius: 10px;
 

@@ -1,19 +1,18 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, createRef } from 'react'
 import styled from 'styled-components'
 import Paper from '../components/Paper'
 import useLazyHttp from '../hooks/useLazyHttp'
 import useHttp from '../hooks/useHttp'
 import useCheckbox from '../hooks/useCheckbox'
-import { Title, Select, Checkbox } from '../components'
+import { Title, Select, Checkbox, Button } from '../components'
 import useInput from '../hooks/useInput'
 import { getSymbol, Balance } from '../components/Card'
-
+import Pdf from 'react-to-pdf'
 const Page = styled.div`
   display: flex;
   flex-direction: row;
   height: 100%;
 `
-
 const Row = styled(Paper)`
   padding: 15px;  
   display: flex;
@@ -36,6 +35,7 @@ const History = () => {
   const [income] = useCheckbox(true)
   const [outcome] = useCheckbox(true)
   const [select, { setValue: setSelect }] = useInput()
+  const ref = createRef()
 
   const { data: bills } = useHttp('/api/bills', {
     credentials: 'include'
@@ -97,7 +97,7 @@ const History = () => {
     <>
       <Title >History</Title>
       <Page>
-        <Container>
+        <Container ref={ref}>
           { transactions.length ?
             transactions.map(tran => (
               <Transaction {...tran} />
@@ -111,23 +111,13 @@ const History = () => {
           <Select label="Select card" options={cards} {...select} />
           <Checkbox label="Income" {...income}/>
           <Checkbox label="Outcome" {...outcome}/>
+          <Pdf targetRef={ref} scale={0.8}>
+            {({ toPdf }) => <Button onClick={toPdf}>Download</Button>}
+          </Pdf>
         </div>
       </Page>
     </>
   )
-  
-  
 }
 
 export default History
-
-// (
-//   <div>
-//                 <span>{ tran.transmitterName } </span>
-//                 <span>{ tran.transmitterNumber} </span>
-//               </div>
-//               <div>
-//                 <span>{ tran.receiverName } </span>
-//                 <span>{ tran.receiverNumber } </span>
-//               </div>
-// )
